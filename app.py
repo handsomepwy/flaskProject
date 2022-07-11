@@ -11,6 +11,14 @@ def hello_world():
     return render_template("main.html")
 
 
+@app.route("/test",methods=['POST', 'GET'])
+def test():
+    stri = "1234567890"
+    with open('data.txt', 'w') as f:
+        f.write(stri)
+    return "欢迎来到test页面"
+
+
 @app.route("/<path_name>/")
 def not_found(path_name):
     return render_template("not_found.html", path_name=path_name)
