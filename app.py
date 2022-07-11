@@ -19,6 +19,8 @@ def test():
     return "欢迎来到test页面"
 
 
+professional = "wer"
+
 @app.route("/<path_name>/")
 def not_found(path_name):
     return render_template("not_found.html", path_name=path_name)
