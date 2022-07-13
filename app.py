@@ -1,5 +1,17 @@
 from flask import Flask, render_template
 import time
+import sqlite3
+connection = sqlite3.connect("test.db")
+cursor = connection.cursor()
+cursor.execute("select * from comments")
+table = cursor.fetchall()
+i = 0
+res_html = "<ul>"
+while i < len(table):
+    res_html = res_html + "<li>{name}:</li><li>{comment}</li>".format(name=table[i][0], comment=table[i][1])
+    i = i + 1
+res_html = res_html + "</ul>"
+
 
 app = Flask(__name__)
 
@@ -12,7 +24,7 @@ def hello_world():
     f = open("vis.txt", "a")
     localtime = time.asctime(time.localtime(time.time()))
     f.write("visited / page on " + localtime + "\n")
-    return render_template("main.html")
+    return render_template("main.html", com = res_html)
 
 
 @app.route("/<path_name>/")
